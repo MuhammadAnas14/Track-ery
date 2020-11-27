@@ -2,7 +2,6 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Map from './map/Map';
 import {GoogleApiWrapper} from 'google-maps-react';
-import './App.css';
 import Divider from 'material-ui/Divider';
 import SearchField from './search-field/SearchField';
 import SortingField from './sorting-field/SortingField';

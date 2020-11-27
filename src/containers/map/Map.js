@@ -3,7 +3,6 @@ import {withRouter} from 'react-router-dom'
 import axios from 'axios';
 import Message from '../message/Message';
 import queryString from 'query-string';
-import './Map.css'
 class Map extends Component {
 
     state = {
