@@ -10,6 +10,7 @@ import Radius from './radius/Radius';
 import OpenedNow from './opened-now/OpenedNow';
 import cl from 'classnames';
 
+import './App.css'
 class App extends React.Component {
     state = {
         isSidebarExpanded: true,
