@@ -1,5 +1,5 @@
 {
-  "name": "mealternative",
+  "name": "trackery",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,9 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "aws s3 sync build/ s3://mealternative.com",
-    "clean": "aws cloudfront create-invalidation --distribution-id ELTHB9HBFQAEK --paths '/*' && rm -rf build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

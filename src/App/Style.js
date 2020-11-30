@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight:600,
   },
   navlinks: {
+fontFamily: 'Montserrat',
     margin:'10px',
-  fontWeight: 550,
   [theme.breakpoints.down('sm')]: {
     width: 0,
     display:'none',
