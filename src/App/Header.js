@@ -119,7 +119,7 @@ const Header = (props) => {
                 <MenuRounded />
               </IconButton>
             )}
-             <Typography variant="h5" style={{fontWeight:700, fontStyle: 'italic', margin:'10px'}} color='inherit' onClick={() => handleRouteChange('/')}>
+             <Typography variant="h5" style={{fontFamily: 'Montserrat', fontWeight:700, margin:'10px'}} color='inherit' onClick={() => handleRouteChange('/')}>
                 Track-ery.
               </Typography>
             {/* <IconButton color='inherit' onClick={() => handleRouteChange('/')}>
