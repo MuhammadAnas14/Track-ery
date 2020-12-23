@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     display: 'grid',
     justifyItems: 'center',
-    color: 'white',
+    
     fontFamily: 'Montserrat',
   },
   formTitle: {

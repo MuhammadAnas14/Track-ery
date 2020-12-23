@@ -8,7 +8,6 @@ const SearchInput = props => {
 
   return (
     <TextField
-    style={{color:'white'}}
       size='small'
       className={classes}
       value={value}

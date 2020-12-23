@@ -119,7 +119,7 @@ const LocationFilterForm = props => {
             variant='outlined'
             fullWidth
             placeholder='All restaurants'
-            style={{color:'white', background:'white'}}
+
             value={queryValue}
             size='small'
             onChange={handleChange}

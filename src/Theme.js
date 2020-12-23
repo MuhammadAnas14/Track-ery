@@ -21,7 +21,7 @@ export const theme = createMuiTheme({
         marginLeft: 8,
         flex: 1,
         "& ::-webkit-input-placeholder": {
-          color: "white !important"
+          color: "black !important"
         }
       }
     },
