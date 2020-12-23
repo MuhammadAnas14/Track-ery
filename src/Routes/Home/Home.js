@@ -1,16 +1,9 @@
-/*
-  Home page of mealternative
-*/
-
-// react
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// components
 import TopCard from './_components/TopCard';
 import { Typography, useTheme, useMediaQuery } from '@material-ui/core';
 
-// misc
 import useStyles from './Style';
 
 const Home = props => {

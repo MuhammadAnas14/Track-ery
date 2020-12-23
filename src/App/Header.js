@@ -1,13 +1,5 @@
-/*
-  The main header component of the app
-  Contains the sidebar
-*/
-
-// react
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
-// components
 import { withRouter } from 'react-router-dom';
 import {
   useTheme,
@@ -35,13 +27,8 @@ import {
 
 const Header = (props) => {
   const { userDetails, classes, isAuthenticated, history, signOut } = props;
-
-  // account icon menu anchor element
   const [anchorEl, setAnchorEl] = useState(null);
-
-  // side bar open state
   const [sideBar, setSideBar] = useState(false);
-
   const handleRouteChange = (path) => {
     if (path === 'https://github.com/MuhammadAnas14/Track-ery/') {
       window.location.replace(path);
@@ -57,8 +44,6 @@ const Header = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // close the menu when item click in menu
   const handleMenuClick = (path) => {
     handleClose();
     if (path === '/account') {
@@ -68,14 +53,10 @@ const Header = (props) => {
       handleRouteChange(path);
     }
   };
-
-  // close the menu on signout
   const handleSignOut = () => {
     handleClose();
     signOut();
   };
-
-  // sign out in array doesn't provide path
   const handleSideBarSelect = (path) => {
     if (!path) {
       signOut();
@@ -89,18 +70,13 @@ const Header = (props) => {
         handleRouteChange(path);
       }
     }
-    // close the sidebar
     setSideBar(false);
   };
-
-  // using material ui to get view port width
-  // inline animation require responsive
   const theme = useTheme();
   const showMenuIcons = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
     <>
-      {/* sidebar */}
       <SideBar
         handleClose={() => setSideBar(false)}
         classes={classes}
@@ -108,8 +84,6 @@ const Header = (props) => {
         isAuthenticated={isAuthenticated}
         handleSideBarSelect={handleSideBarSelect}
       />
-
-      {/* app bar */}
       <AppBar position='fixed'>
         <Toolbar disableGutters className={classes.menuBarLayout}>
           <div className={classes.menuBarLeft}>
@@ -122,23 +96,8 @@ const Header = (props) => {
              <Typography variant="h5" style={{fontFamily: 'Montserrat', fontWeight:700, margin:'10px'}} color='inherit' onClick={() => handleRouteChange('/')}>
                 Track-ery.
               </Typography>
-            {/* <IconButton color='inherit' onClick={() => handleRouteChange('/')}>
-              <HomeRounded />
-            </IconButton> */}
-            {/* {showMenuIcons && (
-              <Avatar
-                variant='square'
-                src={HeaderLogo}
-                className={classes.headerLogo}
-              />
-            )} */}
           </div>
-
-          {/* rightside of the menu bar, contains most icons */}
           <div className={classes.menuBarRight}>
-          <Typography variant="h7" color='inherit' className={classes.navlinks} onClick={() => handleRouteChange('/create')}>
-                Add Something?
-              </Typography>
               <Typography variant="h7" color='inherit' className={classes.navlinks} onClick={() => handleRouteChange('/map') }>
                 Explore
               </Typography>

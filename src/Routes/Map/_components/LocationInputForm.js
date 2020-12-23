@@ -91,6 +91,7 @@ const LocationInputForm = props => {
             variant='outlined'
             fullWidth
             placeholder='Add address'
+            style={{background:'white'}}
             value={value}
             onChange={handleChange}
             size='small'
