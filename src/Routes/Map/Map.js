@@ -3,22 +3,23 @@
 */
 
 // React
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 // Compoennts
-import GoogleMapReact from 'google-map-react';
-import PageSpinner from '../../Common/Spinner/PageSpinner';
-import LocationInputForm from './_components/LocationInputForm';
-import LocationFilterForm from './_components/LocationFilterForm';
-import CenterMarker from './_components/CenterMarker';
-import RestaurantMarker from './_components/RestaurantMarker';
-import DetailModal from './_components/DetailModal';
-import IndividualDetail from './_components/IndividualDetail';
+import GoogleMapReact from "google-map-react";
+import PageSpinner from "../../Common/Spinner/PageSpinner";
+import LocationInputForm from "./_components/LocationInputForm";
+import LocationFilterForm from "./_components/LocationFilterForm";
+import CenterMarker from "./_components/CenterMarker";
+import RestaurantMarker from "./_components/RestaurantMarker";
+import DetailModal from "./_components/DetailModal";
+import IndividualDetail from "./_components/IndividualDetail";
 
 // Misc
-import { GoogleMapAPIKey } from '../../config';
-import useStyles from './Style';
+import { GoogleMapAPIKey } from "../../config";
+import useStyles from "./Style";
+import "./map.css";
 
 const Map = (props) => {
   const {
@@ -99,7 +100,7 @@ const Map = (props) => {
           <GoogleMapReact
             bootstrapURLKeys={{
               key: GoogleMapAPIKey,
-              libraries: ['places', 'directions'],
+              libraries: ["places", "directions"],
             }}
             center={
               selectedMarker.geometry

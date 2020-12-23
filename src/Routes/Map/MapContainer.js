@@ -4,19 +4,20 @@
 */
 
 // React
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import "./map.css";
 
 // Redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { LocationActions } from '../../Redux/location';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { LocationActions } from "../../Redux/location";
 
 // Components
-import Map from './Map';
-import ErrorSnack from '../../Common/ErrorModal/ErrorSnack';
+import Map from "./Map";
+import ErrorSnack from "../../Common/ErrorModal/ErrorSnack";
 
-const MapContainer = props => {
+const MapContainer = (props) => {
   // lat, lng info from redux
   const {
     setLocationError,
@@ -25,7 +26,7 @@ const MapContainer = props => {
     lat,
     lng,
     locationOptions,
-    getLocation
+    getLocation,
   } = props;
 
   // google map services
@@ -35,7 +36,7 @@ const MapContainer = props => {
     placesServices: null,
     directionService: null,
     geoCoderService: null,
-    mapLoaded: false
+    mapLoaded: false,
   });
 
   // center lat lng position
@@ -51,12 +52,12 @@ const MapContainer = props => {
   // determine if the detailed information modal should be opened
   const [detailOpen, setDetailOpen] = useState(false);
   // stores the error state
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   // determine if the detail modal should be opened
   const [individualModal, setInividualModal] = useState({
     show: false,
     loading: false,
-    details: {}
+    details: {},
   });
 
   const {
@@ -64,21 +65,21 @@ const MapContainer = props => {
     autoCompleteService,
     placesServices,
     geoCoderService,
-    mapLoaded
+    mapLoaded,
     // directionService
   } = googleMap;
 
   // get user location on page mounts
   useEffect(() => {
     // success call back when getting location
-    const locationSuccess = pos => {
+    const locationSuccess = (pos) => {
       const crd = pos.coords;
       // store the lat lng to redux
       getLocation({ lat: crd.latitude, lng: crd.longitude });
     };
     // error call back
     const locationError = () =>
-      setLocationError('Please turn on location services in your phone');
+      setLocationError("Please turn on location services in your phone");
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -87,7 +88,7 @@ const MapContainer = props => {
         locationOptions
       );
     } else {
-      setLocationError('Sorry, your browser does not support geolocation');
+      setLocationError("Sorry, your browser does not support geolocation");
     }
   }, [getLocation, locationOptions, setLocationError]);
 
@@ -102,12 +103,12 @@ const MapContainer = props => {
 
   // clear all errors
   const handleClearError = () => {
-    setError('');
+    setError("");
     clearLocationError();
   };
 
   // check active selected marker
-  const checkSelectedMarker = id => {
+  const checkSelectedMarker = (id) => {
     return id === selectedMarker.place_id;
   };
 
@@ -120,7 +121,7 @@ const MapContainer = props => {
       placesServices: new maps.places.PlacesService(map),
       directionService: new maps.DirectionsService(),
       geoCoderService: new maps.Geocoder(),
-      mapLoaded: true
+      mapLoaded: true,
     });
   };
 
@@ -129,14 +130,14 @@ const MapContainer = props => {
     const searchQuery = {
       input: searchValue,
       location: new mapsApi.LatLng(lat, lng),
-      radius: 100000 // in Meters. 100km
+      radius: 100000, // in Meters. 100km
     };
     // if there is input, perform google autoCompleteService request
     searchQuery.input &&
-      autoCompleteService.getQueryPredictions(searchQuery, response => {
+      autoCompleteService.getQueryPredictions(searchQuery, (response) => {
         // The name of each GoogleMaps place suggestion is in the "description" field
         if (response) {
-          const dataSource = response.map(resp => resp.description);
+          const dataSource = response.map((resp) => resp.description);
           // set the autoCompletion's options
           callBack(dataSource);
         }
@@ -151,7 +152,7 @@ const MapContainer = props => {
       setCenterMarker({ lat, lng });
     } else {
       // decode the address to latlng
-      geoCoderService.geocode({ address }, response => {
+      geoCoderService.geocode({ address }, (response) => {
         if (!response[0]) {
           console.error("Can't find the address");
           setError("Can't find the address");
@@ -166,16 +167,16 @@ const MapContainer = props => {
   };
 
   // format the price level
-  const checkPriceLevel = price => {
+  const checkPriceLevel = (price) => {
     switch (price) {
       case 1:
-        return '$';
+        return "$";
       case 2:
-        return '$$';
+        return "$$";
       case 3:
-        return '$$$';
+        return "$$$";
       default:
-        return '$';
+        return "$";
     }
   };
 
@@ -195,8 +196,8 @@ const MapContainer = props => {
     // will update the no queryType request later using nearbySearch api
     const placesRequest = {
       location: new mapsApi.LatLng(centerMarker.lat, centerMarker.lng),
-      type: ['restaurant', 'cafe'],
-      query: queryType ? queryType : 'restaurant'
+      type: ["restaurant", "cafe"],
+      query: queryType ? queryType : "restaurant",
       // rankBy cannot be used with radius at the same time
       // rankBy doesn't seem to work with textSearch, keep it for future reference
       // radius: '500',
@@ -207,9 +208,9 @@ const MapContainer = props => {
     placesServices.textSearch(
       placesRequest,
       (locationResults, status, paginationInfo) => {
-        if (status !== 'OK') {
+        if (status !== "OK") {
           setResLoading(false);
-          console.error('No results found', status);
+          console.error("No results found", status);
           setError(`No results found ${status}`);
         } else {
           // temp list to keep current result, only update state once
@@ -241,7 +242,7 @@ const MapContainer = props => {
           // store nextPage information to state
           setNextPage(paginationInfo);
           // update state results
-          setResultRestaurantList(prevList => {
+          setResultRestaurantList((prevList) => {
             const newList = [...prevList, ...tempResultList];
             return newList;
           });
@@ -253,12 +254,12 @@ const MapContainer = props => {
   };
 
   // get and format all details needed to display
-  const getBasicResDetails = restaurant => {
+  const getBasicResDetails = (restaurant) => {
     let resDetail = {};
     // display no photo image if no photo
     resDetail.photoUrl = restaurant.photos
       ? restaurant.photos[0].getUrl()
-      : 'https://res.cloudinary.com/kazhala/image/upload/c_scale,h_1000,w_1500/v1583356356/mealternative/noimage_wclxmf.png';
+      : "https://res.cloudinary.com/kazhala/image/upload/c_scale,h_1000,w_1500/v1583356356/mealternative/noimage_wclxmf.png";
     resDetail.name = restaurant.name;
     resDetail.rating = restaurant.rating ? restaurant.rating : 0;
     resDetail.price_level = restaurant.price_level;
@@ -269,45 +270,45 @@ const MapContainer = props => {
   };
 
   // get the individual details with opening_hours and route minutes
-  const getDetailedResDetail = restaurant => {
+  const getDetailedResDetail = (restaurant) => {
     // set loading
     setInividualModal({ ...individualModal, show: true, loading: true });
     // limit the results returned for cost saving
     const detailRequest = {
       placeId: restaurant.place_id,
       fields: [
-        'formatted_phone_number',
-        'opening_hours',
-        'photos',
-        'reviews',
-        'url',
-        'website',
-        'utc_offset_minutes'
-      ]
+        "formatted_phone_number",
+        "opening_hours",
+        "photos",
+        "reviews",
+        "url",
+        "website",
+        "utc_offset_minutes",
+      ],
     };
 
     // get the details
     placesServices.getDetails(detailRequest, (detailRes, detailStatus) => {
-      if (detailStatus !== 'OK') {
+      if (detailStatus !== "OK") {
         clearDetailResDetail();
-        console.error('Something went wrong...', detailStatus);
+        console.error("Something went wrong...", detailStatus);
         setError(`Something went wrong, try again later...(${detailStatus})`);
       } else {
         // store all relative information in the state
-        setInividualModal(prevState => ({
+        setInividualModal((prevState) => ({
           ...prevState,
           loading: false,
           details: {
             ...getBasicResDetails(restaurant),
             phone: detailRes.formatted_phone_number
               ? detailRes.formatted_phone_number
-              : 'N/A',
+              : "N/A",
             opening_hours: detailRes.opening_hours,
             photos: detailRes.photos,
             reviews: detailRes.reviews,
             url: detailRes.url,
-            website: detailRes.website ? detailRes.website : 'N/A'
-          }
+            website: detailRes.website ? detailRes.website : "N/A",
+          },
         }));
         // TODO: maybe add back later
         // if no error, proceed to get the route details for minutes calculation
@@ -386,21 +387,21 @@ const MapContainer = props => {
 };
 
 // connect to redux
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     locationError: state.Location.error,
     lat: state.Location.latitude,
     lng: state.Location.longitude,
-    locationOptions: state.Location.options
+    locationOptions: state.Location.options,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       getLocation: LocationActions.getLocation,
       setLocationError: LocationActions.setLocationError,
-      clearLocationError: LocationActions.clearError
+      clearLocationError: LocationActions.clearError,
     },
     dispatch
   );
@@ -408,7 +409,7 @@ const mapDispatchToProps = dispatch => {
 
 MapContainer.propTypes = {
   lat: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  lng: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
+  lng: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);
